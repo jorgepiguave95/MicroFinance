@@ -8,8 +8,8 @@ volumes:
 services:
   gateway:
     build:
-      context: ./ClientGateway
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ClientGateway/Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
       ASPNETCORE_URLS: "http://+:8080"
@@ -25,8 +25,8 @@ services:
 
   customers:
     build:
-      context: ./Customers
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: Customers/Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
       ASPNETCORE_URLS: "http://+:8080"
@@ -36,8 +36,8 @@ services:
 
   accounts:
     build:
-      context: ./Accounts
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: Accounts/Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
       ASPNETCORE_URLS: "http://+:8080"
@@ -47,7 +47,7 @@ services:
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserver-microfinance
+    container_name: sqlserver
     environment:
       ACCEPT_EULA: "Y"
       MSSQL_PID: "Developer"

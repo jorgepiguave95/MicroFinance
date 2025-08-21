@@ -1,0 +1,18 @@
+# comunes
+bin/
+obj/
+.vs/
+.vscode/
+*.user
+*.suo
+**/*.db
+**/*.db-shm
+**/*.db-wal
+
+# git
+.git/
+.gitignore
+
+# otros
+Dockerfile
+docker-compose*.yml
