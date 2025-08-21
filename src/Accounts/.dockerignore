@@ -16,3 +16,6 @@ obj/
 # otros
 Dockerfile
 docker-compose*.yml
+
+ClientGateway/
+Customers/

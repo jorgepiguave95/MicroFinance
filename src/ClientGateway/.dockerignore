@@ -16,3 +16,6 @@ obj/
 # otros
 Dockerfile
 docker-compose*.yml
+
+Accounts/
+Customers/

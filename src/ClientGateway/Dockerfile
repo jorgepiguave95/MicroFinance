@@ -1,17 +1,14 @@
-
-
 # ===== Build =====
+
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-# Copiamos los .csproj necesarios para restaurar correctamente
-COPY ../Contracts/Contracts.csproj Contracts/
-COPY ClientGateway.csproj ClientGateway/
+COPY Contracts/Contracts.csproj Contracts/
+COPY ClientGateway/ClientGateway.csproj ClientGateway/
 
 RUN dotnet restore ClientGateway/ClientGateway.csproj
 
-# Copiamos el resto del código de la solución
-COPY .. .
+COPY . .
 RUN dotnet publish ClientGateway/ClientGateway.csproj -c Release -o /app/publish
 
 # ===== Runtime =====

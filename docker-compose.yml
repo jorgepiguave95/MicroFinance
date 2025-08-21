@@ -8,7 +8,7 @@ volumes:
 services:
   gateway:
     build:
-      context: .
+      context: ./src
       dockerfile: ClientGateway/Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
@@ -25,7 +25,7 @@ services:
 
   customers:
     build:
-      context: .
+      context: ./src
       dockerfile: Customers/Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
@@ -36,7 +36,7 @@ services:
 
   accounts:
     build:
-      context: .
+      context: ./src
       dockerfile: Accounts/Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT}
