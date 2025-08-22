@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Accounts.Services;
+using Contracts.Accounts;
 
 namespace Accounts.Controllers
 {
@@ -15,68 +16,50 @@ namespace Accounts.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+
+
+        public async Task<IActionResult> GetAll()
         {
-            try
-            {
-                return _service.GetAll();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Error: {ex.Message}");
-            }
+            var response = await _service.GetAll();
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+
+
+        public async Task<IActionResult> GetById(int id)
         {
-            try
-            {
-                return _service.GetById(id);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Error: {ex.Message}");
-            }
+            var response = await _service.GetById(id);
+            return Ok(response);
         }
 
         [HttpPost]
-        public IActionResult Create()
+
+
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] AccountDto dto)
         {
-            try
-            {
-                return _service.Create();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Error: {ex.Message}");
-            }
+            var response = await _service.Create(dto);
+            return Ok(response);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id)
+
+
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] AccountDto dto)
         {
-            try
-            {
-                return _service.Update(id);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Error: {ex.Message}");
-            }
+            var response = await _service.Update(dto.Id, dto);
+            return Ok(response);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+
+
+        public async Task<IActionResult> Delete(int id)
         {
-            try
-            {
-                return _service.Delete(id);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Error: {ex.Message}");
-            }
+            var response = await _service.Delete(id);
+            return Ok(response);
         }
     }
 }

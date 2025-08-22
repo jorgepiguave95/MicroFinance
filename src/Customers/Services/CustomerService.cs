@@ -1,32 +1,64 @@
 
+using Contracts.Customers;
 namespace Customers.Services
 {
     public class CustomerService
     {
-        public string GetAll()
+        public async Task<CustomerResponse> GetAll()
         {
-            try { return "Obteniendo todos los clientes"; }
-            catch (Exception ex) { throw; }
+            var customers = new List<CustomerDto> {
+                new CustomerDto { Id = 1, Name = "Cliente 1", Email = "cliente1@mail.com" },
+                new CustomerDto { Id = 2, Name = "Cliente 2", Email = "cliente2@mail.com" }
+            };
+            return await Task.FromResult(new CustomerResponse
+            {
+                Success = true,
+                Message = "Listado de clientes",
+                Data = null // Puedes crear una CustomerListResponse si lo deseas
+            });
         }
-        public string GetById(int id)
+
+        public async Task<CustomerResponse> GetById(int id)
         {
-            try { return $"Obteniendo cliente con id {id}"; }
-            catch (Exception ex) { throw; }
+            var customer = new CustomerDto { Id = id, Name = $"Cliente {id}", Email = $"cliente{id}@mail.com" };
+            return await Task.FromResult(new CustomerResponse
+            {
+                Success = true,
+                Message = "Cliente encontrado",
+                Data = customer
+            });
         }
-        public string Create()
+
+        public async Task<CustomerResponse> Create(CustomerDto dto)
         {
-            try { return "Cliente creado exitosamente"; }
-            catch (Exception ex) { throw; }
+            dto.Id = 99; // Simulación
+            return await Task.FromResult(new CustomerResponse
+            {
+                Success = true,
+                Message = "Cliente creado exitosamente",
+                Data = dto
+            });
         }
-        public string Update(int id)
+
+        public async Task<CustomerResponse> Update(int id, CustomerDto dto)
         {
-            try { return $"Cliente con id {id} actualizado"; }
-            catch (Exception ex) { throw; }
+            dto.Id = id;
+            return await Task.FromResult(new CustomerResponse
+            {
+                Success = true,
+                Message = "Cliente actualizado",
+                Data = dto
+            });
         }
-        public string Delete(int id)
+
+        public async Task<CustomerResponse> Delete(int id)
         {
-            try { return $"Cliente con id {id} eliminado"; }
-            catch (Exception ex) { throw; }
+            return await Task.FromResult(new CustomerResponse
+            {
+                Success = true,
+                Message = $"Cliente con id {id} eliminado",
+                Data = null
+            });
         }
     }
 }

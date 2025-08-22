@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Customers.Services;
+using Contracts.Customers;
 
 namespace Customers.Controllers
 {
@@ -15,69 +16,39 @@ namespace Customers.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            try
-            {
-                var result = _service.GetAll();
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Error: {ex.Message}");
-            }
+            var response = await _service.GetAll();
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            try
-            {
-                return _service.GetById(id);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Error: {ex.Message}");
-            }
+            var response = await _service.GetById(id);
+            return Ok(response);
         }
 
         [HttpPost]
-        public IActionResult Create()
+        public async Task<IActionResult> Create([FromBody] CustomerDto dto)
         {
-            try
-            {
-                return _service.Create();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Error: {ex.Message}");
-            }
+            var response = await _service.Create(dto);
+            return Ok(response);
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Update(int id)
+
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] CustomerDto dto)
         {
-            try
-            {
-                return _service.Update(id);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Error: {ex.Message}");
-            }
+            var response = await _service.Update(dto.Id, dto);
+            return Ok(response);
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            try
-            {
-                return _service.Delete(id);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Error: {ex.Message}");
-            }
+            var response = await _service.Delete(id);
+            return Ok(response);
         }
     }
 }
