@@ -1,4 +1,8 @@
+
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
+using System.Text.Json;
+using Contracts.Customers;
 
 namespace ClientGateway.Controllers
 {
@@ -35,23 +39,27 @@ namespace ClientGateway.Controllers
             return Content(content, "application/json");
         }
 
+
         [HttpPost]
-        public async Task<IActionResult> CreateCustomer([FromBody] object customerDto)
+        public async Task<IActionResult> CreateCustomer([FromBody] CustomerDto customerDto)
         {
             var baseUrl = _config["CUSTOMERS_BASEURL"];
             var client = _httpClientFactory.CreateClient();
-            var contentToSend = new StringContent(customerDto.ToString() ?? string.Empty, System.Text.Encoding.UTF8, "application/json");
+            var json = JsonSerializer.Serialize(customerDto);
+            var contentToSend = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await client.PostAsync($"{baseUrl}/api/Customer", contentToSend);
             var content = await response.Content.ReadAsStringAsync();
             return Content(content, "application/json");
         }
 
+
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCustomer(int id, [FromBody] object customerDto)
+        public async Task<IActionResult> UpdateCustomer(int id, [FromBody] CustomerDto customerDto)
         {
             var baseUrl = _config["CUSTOMERS_BASEURL"];
             var client = _httpClientFactory.CreateClient();
-            var contentToSend = new StringContent(customerDto.ToString() ?? string.Empty, System.Text.Encoding.UTF8, "application/json");
+            var json = JsonSerializer.Serialize(customerDto);
+            var contentToSend = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await client.PutAsync($"{baseUrl}/api/Customer/{id}", contentToSend);
             var content = await response.Content.ReadAsStringAsync();
             return Content(content, "application/json");

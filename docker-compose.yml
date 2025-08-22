@@ -72,5 +72,6 @@ services:
     depends_on:
       - customers
       - accounts
+      - sqlserver
     networks:
       - internal

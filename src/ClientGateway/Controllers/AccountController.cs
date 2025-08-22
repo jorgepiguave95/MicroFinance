@@ -1,4 +1,8 @@
+
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
+using System.Text.Json;
+using Contracts.Accounts;
 
 namespace ClientGateway.Controllers
 {
@@ -49,14 +53,17 @@ namespace ClientGateway.Controllers
             }
         }
 
+
         [HttpPost]
-        public async Task<IActionResult> CreateAccount()
+        public async Task<IActionResult> CreateAccount([FromBody] AccountDto accountDto)
         {
             try
             {
                 var baseUrl = _config["ACCOUNTS_BASEURL"];
                 var client = _httpClientFactory.CreateClient();
-                var response = await client.PostAsync($"{baseUrl}/api/Account", null);
+                var json = JsonSerializer.Serialize(accountDto);
+                var contentToSend = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync($"{baseUrl}/api/Account", contentToSend);
                 var content = await response.Content.ReadAsStringAsync();
                 return Content(content, "application/json");
             }
@@ -66,14 +73,17 @@ namespace ClientGateway.Controllers
             }
         }
 
+
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAccount(int id)
+        public async Task<IActionResult> UpdateAccount(int id, [FromBody] AccountDto accountDto)
         {
             try
             {
                 var baseUrl = _config["ACCOUNTS_BASEURL"];
                 var client = _httpClientFactory.CreateClient();
-                var response = await client.PutAsync($"{baseUrl}/api/Account/{id}", null);
+                var json = JsonSerializer.Serialize(accountDto);
+                var contentToSend = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await client.PutAsync($"{baseUrl}/api/Account/{id}", contentToSend);
                 var content = await response.Content.ReadAsStringAsync();
                 return Content(content, "application/json");
             }
