@@ -19,9 +19,25 @@ dotnet add package Microsoft.EntityFrameworkCore.Design
 dotnet tool install --global dotnet-ef
 ```
 
-Para crear una migración y actualizar la base de datos:
+## Migraciones manuales con Entity Framework Core
+
+Por defecto, las migraciones automáticas están deshabilitadas en los microservicios. Para aplicar cambios en la base de datos, debes ejecutar los siguientes comandos manualmente desde la carpeta del microservicio correspondiente:
 
 ```sh
+# Crear una nueva migración (ajusta el nombre según el cambio)
+dotnet ef migrations add NombreDeLaMigracion
+
+# Aplicar las migraciones pendientes a la base de datos
+dotnet ef database update
+```
+
+Si necesitas eliminar todas las migraciones y empezar de cero:
+
+```sh
+# Elimina la carpeta Migrations (opcional)
+rm -r Migrations
+
+# Crea una nueva migración inicial
 dotnet ef migrations add InitialCreate
 dotnet ef database update
 ```

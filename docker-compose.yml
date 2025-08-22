@@ -33,7 +33,7 @@ services:
       DB_PORT: ${DB_PORT}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
-      DB_NAME: ${CUSTOMERS_DB_NAME}
+      CUSTOMERS_DB_NAME: ${CUSTOMERS_DB_NAME}
     networks:
       - internal
       - database
@@ -51,7 +51,7 @@ services:
       DB_PORT: ${DB_PORT}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
-      DB_NAME: ${ACCOUNTS_DB_NAME}
+      ACCOUNTS_DB_NAME: ${ACCOUNTS_DB_NAME}
     networks:
       - internal
       - database

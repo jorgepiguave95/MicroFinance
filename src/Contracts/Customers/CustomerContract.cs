@@ -13,4 +13,11 @@ namespace Contracts.Customers
         public string? Message { get; set; }
         public CustomerDto? Data { get; set; }
     }
+
+    public class CustomerListResponse
+    {
+        public bool Success { get; set; }
+        public string? Message { get; set; }
+        public List<CustomerDto>? Data { get; set; }
+    }
 }
